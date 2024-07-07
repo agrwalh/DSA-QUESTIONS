@@ -1,0 +1,58 @@
+Problem LINK--->>>
+https://www.naukri.com/code360/problems/_893049?topList=love-babbar-dsa-sheet-problems&leftPanelTab=0
+
+
+C++ code implementation->>>
+/*************************************************************
+
+    Following is the Binary Tree node structure
+    class TreeNode
+    {
+    public:
+        int data;
+        TreeNode *left, *right;
+        TreeNode() : data(0), left(NULL), right(NULL) {}
+        TreeNode(int x) : data(x), left(NULL), right(NULL) {}
+        TreeNode(int x, TreeNode *left, TreeNode *right) : data(x), left(left), right(right) {}
+    };
+
+*************************************************************/
+pair<int, int> predecessorSuccessor(TreeNode *root, int key)
+{
+    TreeNode* temp = root;
+    int p = -1;
+    int s = -1;
+
+    // Traverse the tree to find the key
+    while (temp != NULL && temp->data != key) {
+        if (temp->data > key) {
+            s = temp->data; // potential successor
+            temp = temp->left;
+        } else {
+            p = temp->data; // potential predecessor
+            temp = temp->right;
+        }
+    }
+
+    // If key is not present in the tree
+    if (temp == NULL) {
+        return make_pair(p, s);
+    }
+
+    // Finding the predecessor
+    TreeNode* leftTree = temp->left;
+    while (leftTree != NULL) {
+        p = leftTree->data;
+        leftTree = leftTree->right;
+    }
+
+    // Finding the successor
+    TreeNode* rightTree = temp->right;
+    while (rightTree != NULL) {
+        s = rightTree->data;
+        rightTree = rightTree->left;
+    }
+
+    return make_pair(p, s);
+}
+
